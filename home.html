@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #18191a;
+            color: #e4e6eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #242526;
+            padding: 20px;
+            text-align: center;
+        }
+        .welcome-message {
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+        .post-container {
+            background-color: #242526;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .post-header {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .post-content {
+            font-size: 16px;
+            margin: 10px 0;
+            word-wrap: break-word;
+        }
+        .see-more {
+            color: #4c69ff;
+            cursor: pointer;
+        }
+        .bottom-bar {
+            background-color: #242526;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .bottom-bar a {
+            color: #e4e6eb;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .bottom-bar a:hover {
+            color: #4c69ff;
+        }
+        .logout-button {
+            color: #e4e6eb;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .logout-button:hover {
+            color: #ff4c4c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome <span id="username"></span></h1>
+</div>
+
+<div class="welcome-message">
+    Welcome to our site! Enjoy your day!
+</div>
+
+<div class="post-container">
+    <div class="post-header">User Post</div>
+    <div class="post-content" id="post-content">
+        Welcome to our website! We're so glad to have you here. Enjoy browsing the content and feel free to explore.
+    </div>
+    <span class="see-more" id="see-more">See more</span>
+</div>
+
+<div class="bottom-bar">
+    <a href="#" id="rules-link">📜 Rules</a>
+    <a href="#" id="reels-link">🎥 Reels</a>
+    <a href="#" id="save-reel">💾 Save Reel</a>
+    <!-- Add logout button -->
+    <a href="#" class="logout-button" id="logout-button">🔑 Logout</a>
+</div>
+
+<script>
+    // Get the logged-in user's name from localStorage
+    let firstName = localStorage.getItem("firstName");
+    let lastName = localStorage.getItem("lastName");
+    document.getElementById("username").textContent = firstName + " " + lastName;
+
+    // Handle "See More" button for posts longer than 400 characters
+    let postContent = document.getElementById("post-content");
+    let seeMoreButton = document.getElementById("see-more");
+
+    const postText = postContent.textContent;
+    if (postText.length > 400) {
+        seeMoreButton.style.display = "inline";
+        seeMoreButton.addEventListener("click", function() {
+            postContent.textContent = postText; // Show full post text
+            seeMoreButton.style.display = "none"; // Hide the "See More" button
+        });
+    }
+
+    // Add functionality for Rules and Reels links
+    document.getElementById("rules-link").href = "your_rules_page_link_here";
+    document.getElementById("reels-link").href = "your_reels_page_link_here";
+    document.getElementById("save-reel").addEventListener("click", function() {
+        alert("Reel saved!");
+    });
+
+    // Logout functionality
+    document.getElementById("logout-button").addEventListener("click", function() {
+        // Clear the user's localStorage data to log them out
+        localStorage.removeItem("firstName");
+        localStorage.removeItem("lastName");
+
+        // Redirect to login page or refresh the current page
+        window.location.href = "login.html"; // Change to your login page
+    });
+
+    // Prevent access to the page if not logged in
+    if (!localStorage.getItem("firstName") || !localStorage.getItem("lastName")) {
+        // Redirect to login page if user is not logged in
+        window.location.href = "login.html"; // Change to your login page
+    }
+</script>
+
+</body>
+</html>
